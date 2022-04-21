@@ -35,9 +35,9 @@ void init_gpio(void) {
 static void blink_LED_task(void *arg)
 {
     while(true) {
-        vTaskDelay(240 / portTICK_RATE_MS);
+        vTaskDelay(245 / portTICK_RATE_MS);
         gpio_set_level(GPIO_LED, 0);        // blue LED on
-        vTaskDelay(10 / portTICK_RATE_MS);
+        vTaskDelay(5 / portTICK_RATE_MS);
         gpio_set_level(GPIO_LED, 1);        // blue LED off
     }
 }
