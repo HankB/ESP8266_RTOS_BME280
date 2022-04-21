@@ -3,4 +3,4 @@
 cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(ESP8266_RTOS_Start)
+project(ESP8266_RTOS_BME280)
