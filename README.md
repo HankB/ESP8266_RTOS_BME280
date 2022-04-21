@@ -83,3 +83,4 @@ make menuconfig # to change build/config settings
     * `cd build; cmake ..`
     * `make`
     * Still there!
+* [Link to FreeRTOS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html) (for ESP32, but probably close for ESP8266.)
