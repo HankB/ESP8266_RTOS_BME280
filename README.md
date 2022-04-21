@@ -53,6 +53,7 @@ make monitor
 ## Status
 
 * Copied code from starting point, builds and runs.
+* Added [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib), compile errors.
 
 ## TODO
 
