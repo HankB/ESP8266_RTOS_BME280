@@ -18,6 +18,7 @@
 #include "my_wifi.h"
 #include "my_mqtt.h"
 #include "my_sntp.h"
+#include "my_bme280.h"
 
 static const char *TAG = "user_main";
 
@@ -36,6 +37,8 @@ void app_main()
     init_sntp();
     print_my_info();
     init_gpio();
+    init_bme280();
+
     ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
     ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
     
@@ -59,8 +62,12 @@ void app_main()
             uptime = now - boot_timestamp;
         }
 
-        snprintf(publish_buf, publish_buf_len, "hello world heap:%d, t:%ld, uptime:%ld",
-                        esp_get_free_heap_size(), now, uptime);
+        float   temp=1;
+        float   press=2;
+        float   humid=3;
+        read_bme280(&temp, &press, &humid);
+        snprintf(publish_buf, publish_buf_len, "hello world heap:%d, t:%ld, uptime:%ld, temp %d, press %d, humid %d",
+                        esp_get_free_heap_size(), now, uptime, (int)(temp*10), (int)(press*10), (int)(humid*10));
         mqtt_publish(NULL, publish_buf);
         vTaskDelay(1000*loop_delay_sec / portTICK_PERIOD_MS); // publish every loop_delay_sec s.
     }

@@ -10,30 +10,18 @@ Add BME280 support to the starting point. Target is a ESP8266 NodeMCU 12E (or si
 
 ## Other libraries
 
-[ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib)
+[ESP8266 driver for the BME280 sensor](https://github.com/Phosphenius/esp8266_bme280) 
 
-```text
-cd ~/exp
-git clone https://github.com/UncleRus/esp-idf-lib.git
-cd ~/Programming/ESP8266/ESP8266_RTOS_BME280
-```
+Added from repo
 
-```text
-hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_Start$ cat Makefile
-#
-# This is a project Makefile. It is assumed the directory this Makefile resides in is a
-# project subdirectory.
-#
+* main/bme280.c
+* main/include/bme280.h
 
-PROJECT_NAME := ESP8266_RTOS_Start
+Created
 
-EXTRA_COMPONENT_DIRS := /home/hbarta/esp/esp-idf-lib/components
-EXCLUDE_COMPONENTS := max7219 mcp23x17 led_strip max31865 ls7366r
+* main/include/my_bme280.h
+* main/my_bme280.c
 
-include $(IDF_PATH)/make/project.mk
-
-hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_Start$ 
-```
 
 ## Build
 
@@ -61,6 +49,7 @@ make monitor
     * [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib)
     * [ESP8266 driver for the BME280 sensor](https://github.com/Phosphenius/esp8266_bme280) GPL
     * [BMP280-library](https://github.com/farmerkeith/BMP280-library)
+* Provide my own faux floating point output conversion.
 
 ## Convenient host commands
 
@@ -84,3 +73,4 @@ make menuconfig # to change build/config settings
     * `make`
     * Still there!
 * [Link to FreeRTOS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html) (for ESP32, but probably close for ESP8266.)
+* The runtrime does not support floating point formats for output (e.g. `sprintf()` and their ilk.)
