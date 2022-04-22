@@ -8,6 +8,15 @@ Copied from my private "start" project that included GPIO, WiFi, SNTP and MQTT i
 
 Add BME280 support to the starting point. Target is a ESP8266 NodeMCU 12E (or similar.)
 
+BME280 connections
+
+|BME280|NodeMCU GPIO|
+|---|---|
+|VIN|3V3|
+|GND|GND|
+|SCL|GPIO5|
+|SDA|GPIO4|
+
 ## Other libraries
 
 [ESP8266 driver for the BME280 sensor](https://github.com/Phosphenius/esp8266_bme280) 
