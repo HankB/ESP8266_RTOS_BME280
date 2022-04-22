@@ -58,7 +58,7 @@ make monitor
     * [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib)
     * [ESP8266 driver for the BME280 sensor](https://github.com/Phosphenius/esp8266_bme280) GPL
     * [BMP280-library](https://github.com/farmerkeith/BMP280-library)
-* Provide my own faux floating point output conversion.
+* Provide my own faux floating point output conversion. Done, needs further testing
 
 ## Convenient host commands
 
