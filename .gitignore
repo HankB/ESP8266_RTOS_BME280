@@ -1,3 +1,5 @@
 build
 sdkconfig*
 secrets.h
+# test app
+format_float

@@ -19,6 +19,7 @@
 #include "my_mqtt.h"
 #include "my_sntp.h"
 #include "my_bme280.h"
+#include "local.h"
 
 static const char *TAG = "user_main";
 
@@ -62,12 +63,19 @@ void app_main()
             uptime = now - boot_timestamp;
         }
 
-        float   temp=1;
-        float   press=2;
-        float   humid=3;
+        float   temp=0;
+        float   press=0;
+        float   humid=0;
+        int len = 10;
+        char temp_buf[len], press_buf[len], humid_buf[len];
+
         read_bme280(&temp, &press, &humid);
-        snprintf(publish_buf, publish_buf_len, "hello world heap:%d, t:%ld, uptime:%ld, temp %d, press %d, humid %d",
-                        esp_get_free_heap_size(), now, uptime, (int)(temp*10), (int)(press*10), (int)(humid*10));
+        snprintf(publish_buf, publish_buf_len, "heap:%d, t:%ld, uptime:%ld, "
+                    "temp %s, press %s, humid %s",
+                    esp_get_free_heap_size(), now, uptime, 
+                    my_float_print(temp_buf, len, temp/5*9+32, 1),
+                    my_float_print(press_buf, len, press*10, 1),
+                    my_float_print(humid_buf, len, humid, 1));
         mqtt_publish(NULL, publish_buf);
         vTaskDelay(1000*loop_delay_sec / portTICK_PERIOD_MS); // publish every loop_delay_sec s.
     }
