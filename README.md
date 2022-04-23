@@ -2,8 +2,6 @@
 
 Copied from my private "start" project that included GPIO, WiFi, SNTP and MQTT in a sort of example project. That began life as the example "hello_world" project and grew like topsy.
 
-
-
 ## Purpose
 
 Add BME280 support to the starting point. Target is a ESP8266 NodeMCU 12E (or similar.)
@@ -53,7 +51,8 @@ make monitor
 ## Status
 
 * Copied code from starting point, builds and runs.
-* Added [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib), compile errors.
+* Added [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib), builds with update from SDK.
+* Added code to read the BME280 in a separate task. Needs top be refactored and fit into something that can publish to MQTT.
 
 ## TODO
 
