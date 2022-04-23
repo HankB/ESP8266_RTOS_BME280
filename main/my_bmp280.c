@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "my_bmp280.h"
+#include "local.h"
 
 #ifndef APP_CPU_NUM
 #define APP_CPU_NUM PRO_CPU_NUM
@@ -13,6 +14,11 @@
 
 #define CONFIG_EXAMPLE_I2C_MASTER_SCL 5
 #define CONFIG_EXAMPLE_I2C_MASTER_SDA 4
+
+#define len 10
+static char press_b[len];
+static char temp_b[len];
+static char humid_b[len];
 
 static void bmp280_test(void *pvParameters)
 {
@@ -42,9 +48,12 @@ static void bmp280_test(void *pvParameters)
          * sdkconfig for ESP8266, which is enabled by default for this
          * example. see sdkconfig.defaults.esp8266
          */
-        printf("Pressure: %.2f Pa, Temperature: %.2f C", pressure, temperature);
+
+        printf("Pressure: %s Pa, Temperature: %s C", 
+            my_float_print(press_b, len, pressure, 2),
+            my_float_print(temp_b, len, temperature, 2));
         if (bme280p)
-            printf(", Humidity: %.2f\n", humidity);
+            printf(", Humidity: %s\n", my_float_print(humid_b, len, humidity, 2));
         else
             printf("\n");
     }
