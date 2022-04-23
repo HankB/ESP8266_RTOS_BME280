@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "my_sntp.h": "c"
+        "my_sntp.h": "c",
+        "my_bmp280.h": "c"
     }
 }
