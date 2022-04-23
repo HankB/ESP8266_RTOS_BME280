@@ -1,4 +1,4 @@
-# ESP8266_RTOS_Start
+# ESP8266_RTOS_BME280
 
 Copied from my private "start" project that included GPIO, WiFi, SNTP and MQTT in a sort of example project. That began life as the example "hello_world" project and grew like topsy.
 
