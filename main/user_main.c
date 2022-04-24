@@ -70,7 +70,7 @@ void app_main()
 
         read_bme280( &pressure, &temperature, &humidity);
         snprintf(publish_buf, publish_buf_len,
-                "{ \"heap\":%d, \"t\":%ld, \"uptime\":%ld "
+                "{ \"heap\":%d, \"t\":%ld, \"uptime\":%ld, "
                 "\"press\": %s, \"temp\": %s, \"humid\": %s}",
                         esp_get_free_heap_size(), now, uptime,
                         my_float_print(press_b, len, pressure, 2),
