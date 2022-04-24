@@ -19,8 +19,14 @@
 #include "my_mqtt.h"
 #include "my_sntp.h"
 #include "my_bmp280.h"
+#include "local.h"
 
 static const char *TAG = "user_main";
+
+#define len 10
+static char press_b[len];
+static char temp_b[len];
+static char humid_b[len];
 
 void app_main()
 {
@@ -39,9 +45,10 @@ void app_main()
     init_gpio();
     ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
     ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
-    start_bmp280();
+    init_bmp280();
     
     while( true) {
+        float pressure, temperature, humidity;
         now = time(0);
         if(boot_timestamp == 0)
         {
@@ -61,8 +68,14 @@ void app_main()
             uptime = now - boot_timestamp;
         }
 
-        snprintf(publish_buf, publish_buf_len, "hello world heap:%d, t:%ld, uptime:%ld",
-                        esp_get_free_heap_size(), now, uptime);
+        read_bme280( &pressure, &temperature, &humidity);
+        snprintf(publish_buf, publish_buf_len,
+                "hello world heap:%d, t:%ld, uptime:%ld "
+                "press %s, temp %s, humid %s",
+                        esp_get_free_heap_size(), now, uptime,
+                        my_float_print(press_b, len, pressure, 2),
+                        my_float_print(temp_b, len, temperature, 2),
+                        my_float_print(humid_b, len, humidity, 2));
         mqtt_publish(NULL, publish_buf);
         vTaskDelay(1000*loop_delay_sec / portTICK_PERIOD_MS); // publish every loop_delay_sec s.
     }
