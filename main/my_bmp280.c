@@ -24,6 +24,9 @@ void read_bme280(float *pressure, float *temperature, float *humidity)
 
     if (!bme280p)
         *humidity = 0.0;
+
+    *pressure /=100; // convert from Pa to hPa
+    *temperature = *temperature/5.0*9.0 + 32.0; // °C to °F
 }
 
 void init_bmp280(void)
