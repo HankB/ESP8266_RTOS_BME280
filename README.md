@@ -82,3 +82,4 @@ make menuconfig # to change build/config settings
     * `cd build; cmake ..`
     * `make`
     * Still there!
+* Build issue with UncleRus library <https://github.com/UncleRus/esp-idf-lib/issues/322>
