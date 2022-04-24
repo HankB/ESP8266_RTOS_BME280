@@ -36,7 +36,7 @@ void app_main()
     int  loop_count = 0;
     time_t now;
     time_t uptime;
-    static int loop_delay_sec = 10;
+    static int loop_delay_sec = 60;
 
     init_wifi();
     mqtt_start();
@@ -70,13 +70,13 @@ void app_main()
 
         read_bme280( &pressure, &temperature, &humidity);
         snprintf(publish_buf, publish_buf_len,
-                "hello world heap:%d, t:%ld, uptime:%ld "
-                "press %s, temp %s, humid %s",
+                "{ \"heap\":%d, \"t\":%ld, \"uptime\":%ld "
+                "\"press\": %s, \"temp\": %s, \"humid\": %s}",
                         esp_get_free_heap_size(), now, uptime,
                         my_float_print(press_b, len, pressure, 2),
                         my_float_print(temp_b, len, temperature, 2),
                         my_float_print(humid_b, len, humidity, 2));
-        mqtt_publish(NULL, publish_buf);
+        mqtt_publish("HA/esp8266.1/roamer/temp_humidity_press", publish_buf);
         vTaskDelay(1000*loop_delay_sec / portTICK_PERIOD_MS); // publish every loop_delay_sec s.
     }
 
