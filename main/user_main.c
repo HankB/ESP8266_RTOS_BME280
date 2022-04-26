@@ -69,13 +69,14 @@ void app_main()
         }
 
         read_bme280( &pressure, &temperature, &humidity);
+
         snprintf(publish_buf, publish_buf_len,
                 "{ \"heap\":%d, \"t\":%ld, \"uptime\":%ld, "
                 "\"press\": %s, \"temp\": %s, \"humid\": %s}",
                         esp_get_free_heap_size(), now, uptime,
-                        my_float_print(press_b, len, pressure, 2),
-                        my_float_print(temp_b, len, temperature, 2),
-                        my_float_print(humid_b, len, humidity, 2));
+                        my_snfprintf(press_b, len, pressure),
+                        my_snfprintf(temp_b, len, temperature),
+                        my_snfprintf(humid_b, len, humidity));
         mqtt_publish("HA/esp8266.1/roamer/temp_humidity_press", publish_buf);
         vTaskDelay(1000*loop_delay_sec / portTICK_PERIOD_MS); // publish every loop_delay_sec s.
     }
