@@ -65,5 +65,14 @@ int main(int argc, char **argv)
     {
         printf("%2d, %s\n", i,  my_float_print(buf, len, val, i));
     }
+
+    val = 1.9;
+
+    for( int i=0; i<40; i++)
+    {
+        printf("%2d, %s, %f\n", i,  my_float_print(buf, len, val, 2), val);
+        val += 0.1;
+    }
+
 }
 #endif
