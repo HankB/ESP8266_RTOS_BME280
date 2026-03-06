@@ -33,6 +33,35 @@ include $(IDF_PATH)/make/project.mk
 hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_Start$ 
 ```
 
+## 2026-03-05 Python virtual environment
+
+Revisiting this project because I need to use an ESP8266 to collect readings from a BME280 and publish via MQTT. It should be easy. But `${IDF_PATH}/export.sh` informs me that Pythom dependencies are not met. I really should be using a Python virtual environment. I don;t think I should include it in the Git repo but I should provide the instructions I used to prepare, use and populate it. `python` and `pip` versio9ns installed (on Debian Trixie)
+
+```text
+hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_BME280$ python --version
+Python 3.13.5
+hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_BME280$ pip --version
+pip 25.1.1 from /usr/lib/python3/dist-packages/pip (python 3.13)
+hbarta@olive:~/Programming/ESP8266/ESP8266_RTOS_BME280$ 
+```
+
+```text
+python -m venv venv
+source venv/bin/activate
+export ESP_BASE_DIR=~/esp
+export IDF_PATH=${ESP_BASE_DIR}/ESP8266_RTOS_SDK
+pip install -r $IDF_PATH/requirements.txt
+```
+
+FFS, still cannot build. Can't even build "hello_world" as suggested at <https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/index.html#install-the-required-python-packages>
+
+```text
+pkg_resources cannot be imported probably because the pip package is not installed and/or using a legacy Python interpreter. Please refer to the Get Started section of the ESP-IDF Programming Guide for setting up the required packages.
+make: *** No rule to make target 'check_python_dependencies', needed by 'menuconfig'.  Stop.
+```
+
+Not sure what to do here except try a different project. Perhaps <https://github.com/HankB/esp8266_MQTT_BME280>
+
 ## Build
 
 "Getting Started" guide at <https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/index.html>
@@ -50,6 +79,7 @@ make monitor
 
 ## Status
 
+* 2026-03-05 Cannot build.
 * Copied code from starting point, builds and runs.
 * Added [ESP-IDF Components library](https://github.com/UncleRus/esp-idf-lib), builds with update from SDK.
 * Added code to read the BME280 in a separate task. Needs top be refactored and fit into something that can publish to MQTT.
